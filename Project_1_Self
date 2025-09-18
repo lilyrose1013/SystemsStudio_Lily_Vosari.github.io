@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project 1 Self as Systems</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Send+Flowers&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar">
+      <div class="brand">Systems Studio</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="Project_1_Collage.html" class="active">Project 1 Self as Systems</a></li>
+      </ul>
+    </nav>
+  </header>
+
+
+  
+  <main class="main-content">
+    <h1>Project 1 Self as Systems</h1>
+    <h2>This is the Project 1: <br> 
+        Self as System:  </h2>
+<h3>My Ideation behing this project was to .....<br>
+page explanation  </h3>
+
+
+  <section class="related-pages">
+      <h2>3 in 3 </h2>
+      <div class="page-links">
+        <a class="page-btn" href="page1.html">Page 1 — Portrait</a>
+        <a class="page-btn" href="page2.html">Page 2 — Rain</a>
+        <a class="page-btn" href="page3.html">Page 3 — Lyrics</a>
+      </div>
+    </section>
+    <h2>Reflection</h2>
+    <h3> Things I can improve on and what I learned</H3>
+  </main>
+
+
+
+  <footer class="site-footer">
+    <p>&copy; Systems Lab: By Lily-Rose Vosari </p>
+  </footer>
+</body>
+</html> 
