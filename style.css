@@ -1,10 +1,10 @@
 /* Primary stylesheet for the site */
 :root {
-  --bg: #d8d0e7;
-  --accent: #9295D0;
-  --accent-600: #5B61B2;
-  --muted: #3A345b;
-  --text: #44146c;
+  --bg: #e7d0df;
+  --accent: #d092a6;
+  --accent-600: #b25b84;
+  --muted: #5b344e;
+  --text: #6c1449;
   --shadow: 0 2px 4px rgba(11,22,33,0.06);
   --max-width: 900px;
   --radius-sm: 6px;

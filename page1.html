@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project 1 Self as Systems</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Send+Flowers&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .stage {
+      width: 400px;
+      height: 400px;
+      display: inline-block;
+      border: 1px solid #e5e5e5;
+      box-sizing: border-box;
+      background: #fff;
+    }
+    canvas { display: block; width: 100%; height: 100%; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar">
+      <div class="brand">Systems Studio</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="Project_1_Self.html" class="active">Project 1 Self as Systems</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="stage">
+    <canvas id="scene" width="400" height="400" aria-label="Gray head and shoulders with pink stars inside"></canvas>
+  </div>
+
+  <script>
+    (function init() {
+      const canvas = document.getElementById('scene');
+      const ctx = canvas.getContext('2d');
+
+      // HiDPI scale (why: crisp edges on retina).
+      const dpr = Math.max(1, window.devicePixelRatio || 1);
+      const w = 400, h = 400;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      // Helpers
+      function fillCircle(x, y, r, color) {
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.fillStyle = color;
+        ctx.fill();
+      }
+
+      function drawStar(x, y, outerR, innerR, points, color) {
+        // Why: parametric star; innerR controls "spikiness".
+        const step = Math.PI / points;
+        ctx.beginPath();
+        for (let i = 0; i < 2 * points; i++) {
+          const ang = i * step - Math.PI / 2;
+          const r = (i % 2 === 0) ? outerR : innerR;
+          const sx = x + Math.cos(ang) * r;
+          const sy = y + Math.sin(ang) * r;
+          i === 0 ? ctx.moveTo(sx, sy) : ctx.lineTo(sx, sy);
+        }
+        ctx.closePath();
+        ctx.fillStyle = color;
+        ctx.fill();
+      }
+
+      // Background
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, w, h);
+
+      // Silhouette circles
+      const head = { x: 200, y: 150, r: 80, color: '#9ca3af' };
+      const shoulders = { x: 200, y: 320, r: 125, color: '#b0b7bf' };
+      fillCircle(head.x, head.y, head.r, head.color);
+      fillCircle(shoulders.x, shoulders.y, shoulders.r, shoulders.color);
+
+      // Pink stars fully inside the circles (3 in head, 4 in shoulders)
+      const PINK = '#ec4899';
+      const stars = [
+        // Head (radius 80) — [big, medium, small]
+        { x: 200, y: 110, outer: 19 }, // big
+        { x: 170, y: 160, outer: 7  }, // medium
+        { x: 240, y: 170, outer: 5  }, // small
+        // Shoulders (radius 125) — [big, medium, small, medium]
+        { x: 140, y: 280, outer: 35 }, // big
+        { x: 260, y: 290, outer: 8  }, // medium
+        { x: 220, y: 350, outer: 5  }, // small
+        { x: 100, y: 360, outer: 10  }, // medium
+      ];
+
+      stars.forEach(s => drawStar(s.x, s.y, s.outer, s.outer * 0.5, 5, PINK));
+    })();
+  </script>
+</body>
+</html>
+
+

@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project 1 Self as Systems</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Send+Flowers&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar">
+      <div class="brand">Systems Studio</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="Project_1_Self.html" class="active">Project 1 Self as Systems</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+<div id="wrap">
+<canvas id="rain" width="600" height="600" aria-label="Blue raindrops art"></canvas>
+</div>
+
+
+<script>
+/**
+* Draws a symmetric teardrop using two cubic Beziers.
+* Why: Beziers give a clean raindrop silhouette and are resolution independent.
+*/
+function drawRaindrop(ctx, x, y, r, color) {
+ctx.beginPath();
+ctx.moveTo(x, y - r);
+ctx.bezierCurveTo(x + r, y - r * 0.5, x + r, y + r * 0.55, x, y + r);
+ctx.bezierCurveTo(x - r, y + r * 0.55, x - r, y - r * 0.5, x, y - r);
+ctx.fillStyle = color;
+ctx.fill();
+}
+
+
+/** Packs circles (raindrop bounding radii) with simple rejection to reduce overlaps. */
+function placeDrops(width, height, specs) {
+const placed = []; // {x,y,r,color}
+const PAD = 4; // Why: small gap keeps shapes visually distinct
+
+
+function ok(x, y, r) {
+for (const d of placed) {
+const dx = d.x - x, dy = d.y - y;
+const dist2 = dx * dx + dy * dy;
+const min = d.r + r + PAD;
+if (dist2 < min * min) return false;
+}
+// keep whole shape inside canvas
+return x - r >= PAD && x + r <= width - PAD && y - r >= PAD && y + r <= height - PAD;
+}
+
+
+for (const spec of specs) {
+let placedForSpec = 0;
+let attempts = 0;
+while (placedForSpec < spec.count && attempts < spec.count * 800) {
+attempts++;
+const x = Math.random() * width;
+const y = Math.random() * height;
+if (ok(x, y, spec.r)) {
+placed.push({ x, y, r: spec.r, color: spec.color });
+placedForSpec++;
+}
+}
+}
+return placed;
+}
+
+
+(function main() {
+const canvas = document.getElementById('rain');
+const ctx = canvas.getContext('2d');
+
+
+const w = canvas.width, h = canvas.height;
+
+
+// Color palette: bright deep → darker → darkest
+const COLORS = {
+small: '#005FCC', // bright deep blue
+medium: '#003F8C', // darker blue
+large: '#001F4D' // darkest blue
+};
+
+
+// Size (radius of teardrop bounds) and counts
+const specs = [
+{ label: 'small', r: 8, count: 5, color: COLORS.small }, // exactly 5 small
+{ label: 'medium', r: 14, count: 12, color: COLORS.medium },
+{ label: 'large', r: 22, count: 8, color: COLORS.large }
+];
+
+ctx.save();
+
+// very faint background to give depth
+ctx.fillStyle = '#f7fbff';
+ctx.fillRect(0, 0, w, h);
+
+// draw background (removed grid lines)
+ctx.fillStyle = '#ffffff'; // plain white background
+ctx.fillRect(0, 0, w, h);
+
+ctx.restore();
+
+// place the drops and draw them
+const placements = placeDrops(w, h, specs);
+
+for (const p of placements) {
+  ctx.save();
+  ctx.translate(p.x, p.y);
+  // slight random tilt for variety
+  ctx.rotate((Math.random() - 0.5) * 0.12);
+  drawRaindrop(ctx, 0, 0, p.r, p.color);
+  ctx.restore();
+}
+
+
+})();
+
+</script>
+</body>
+</html>
