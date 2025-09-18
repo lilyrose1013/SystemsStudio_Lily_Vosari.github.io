@@ -1,0 +1,273 @@
+/* Primary stylesheet for the site */
+:root {
+  --bg: #d8d0e7;
+  --accent: #9295D0;
+  --accent-600: #5B61B2;
+  --muted: #3A345b;
+  --text: #44146c;
+  --shadow: 0 2px 4px rgba(11,22,33,0.06);
+  --max-width: 900px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+}
+
+/* Font is loaded via <link> in the HTML head (preferred over @import for performance) */
+
+/* ========== Reset / Base ========== */
+* { box-sizing: border-box; }
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Send Flowers', "Segoe UI", Roboto, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 18px;
+  line-height: 1.45;
+}
+
+:focus {
+  outline: 3px solid rgba(43,108,176,0.15);
+  outline-offset: 2px;
+}
+
+/* ========== Layout Containers ========== */
+.site-header {
+  background: #edeaf1;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+
+.brand {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 3.25rem;
+}
+
+.navbar {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  padding-left: 160px;
+}
+
+.main-content,
+.site-footer {
+  max-width: var(--max-width);
+  margin: 40px auto;
+  padding: 0 16px;
+}
+
+.site-footer { color: var(--muted); }
+
+/* ========== Branding & Nav ========== */
+.nav-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 17px;
+  flex-wrap: wrap; /* allow links to wrap to next line instead of overlapping */
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--muted);
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  display: inline-block;
+  font-size: 22pt;
+}
+
+.nav-links a:hover { background: rgba(0,0,0,0.03); color: var(--accent); }
+.nav-links a.active { background: var(--accent); color: #fff; }
+
+/* ========== Components ========== */
+.collage-placeholder {
+  margin-top: 16px;
+  padding: 40px;
+  border: 2px dashed #d1d5db;
+  border-radius: var(--radius-md);
+  color: var(--muted);
+  text-align: center;
+}
+
+.related-pages { margin-top: 28px; }
+.related-pages h2 { margin: 0 0 12px 0; color: var(--accent); }
+
+/* Collage image sizing */
+.collage-img {
+  display: block;
+  max-width: 60%; /* default: image will be at most 60% of container width */
+  height: auto;    /* maintain aspect ratio */
+  margin: 18px 0;  /* space above and below */
+  border-radius: 8px;
+}
+
+@media (max-width: 640px) {
+  .collage-img { max-width: 100%; }
+}
+
+h1 {
+  font-size: 2.8rem;
+  margin: 0 0 12px 0;
+  color: var(--muted);
+}
+
+h2 {
+  font-size: 1.7rem;
+  margin: 0 0 12px 0;
+}
+h3 {
+  font-size: 1.25rem;
+  margin: 0 0 12px 0;
+}
+
+.page-btn { font-size: 1rem; }
+.site-footer p { font-size: 1.5rem; }
+
+.page-links { display: flex; gap: 17px; flex-wrap: wrap; }
+.page-btn {
+  display: inline-block;
+  padding: 10px 14px;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  border-radius: var(--radius-md);
+}
+.page-btn:hover { background: var(--accent-600); }
+
+/* ========== Utilities ========== */
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0);
+  white-space: nowrap; border: 0;
+}
+
+/* small responsive tweaks */
+@media (max-width: 520px) {
+  .navbar { padding: 10px 12px; padding-left: 12px; }
+  .main-content, .site-footer { margin: 24px auto; }
+  .collage-placeholder { padding: 28px; }
+}
+
+/* Adjust navbar layout on medium and small screens */
+@media (max-width: 800px) {
+  .navbar {
+    padding-left: 12px; /* free space when brand becomes static */
+    flex-wrap: wrap; /* allow content to wrap vertically */
+    align-items: flex-start;
+  }
+
+  .brand {
+    position: relative; /* place brand in flow on smaller screens */
+    left: 0;
+    top: 0;
+    transform: none;
+    font-size: 2.25rem;
+    margin-bottom: 8px;
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 12px;
+  }
+
+  .nav-links a { font-size: 18pt; padding: 6px 8px; }
+}
+
+@media (max-width: 420px) {
+  .brand { font-size: 1.9rem; }
+  .nav-links a { font-size: 16pt; padding: 5px 6px; }
+  .nav-links { gap: 8px; }
+}
+
+/* slightly reduce base font on very small screens to avoid overflow */
+@media (max-width: 360px) {
+  html, body { font-size: 16px; }
+  h1 { font-size: 1.6rem; }
+}
+
+/* ========== NEW: Grid Box Component ========== */
+.grid-box {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* responsive */
+  gap: 16px;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  background: rgba(255,255,255,0.4); /* subtle contrast with --bg */
+  box-shadow: var(--shadow);
+}
+
+.grid-item {
+  background: #fff;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  padding: 16px;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: transform 160ms ease, box-shadow 160ms ease; /* fast responsive feel */
+}
+
+.grid-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(11,22,33,0.10);
+}
+
+.grid-item h3 {
+  margin: 0 0 6px 0;
+  color: var(--muted);
+  font-size: 1.25rem;
+}
+
+.grid-item p {
+  margin: 0 0 10px 0;
+  color: var(--text);
+}
+
+/* Variant: fixed square box (good for icons, images) */
+.grid-item--square {
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-content: center;
+  text-align: center;
+}
+
+/* Grid centering modifiers: center content horizontally and vertically */
+.grid-box--center {
+  display: grid;
+  place-items: center; /* center grid cells */
+  padding: 18px;
+}
+
+.grid-item--center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Explicit column count modifiers (optional overrides) */
+.grid-box.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-box.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-box.cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+/* Smaller screens: slightly smaller min width to keep 2-up */
+@media (max-width: 640px) {
+  .grid-box { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+}
+
+/* Motion respect */
+@media (prefers-reduced-motion: reduce) {
+  .grid-item { transition: none; }
+}
