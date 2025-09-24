@@ -1,4 +1,4 @@
-/* Primary stylesheet for the site */
+
 :root {
   --bg: #e7d0df;
   --accent: #d092a6;
@@ -11,9 +11,6 @@
   --radius-md: 8px;
 }
 
-/* Font is loaded via <link> in the HTML head (preferred over @import for performance) */
-
-/* ========== Reset / Base ========== */
 * { box-sizing: border-box; }
 html, body {
   height: 100%;
@@ -30,7 +27,7 @@ html, body {
   outline-offset: 2px;
 }
 
-/* ========== Layout Containers ========== */
+
 .site-header {
   background: #edeaf1;
   box-shadow: var(--shadow);
@@ -66,14 +63,14 @@ html, body {
 
 .site-footer { color: var(--muted); }
 
-/* ========== Branding & Nav ========== */
+
 .nav-links {
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
   gap: 17px;
-  flex-wrap: wrap; /* allow links to wrap to next line instead of overlapping */
+  flex-wrap: wrap; 
 }
 
 .nav-links a {
@@ -88,7 +85,7 @@ html, body {
 .nav-links a:hover { background: rgba(0,0,0,0.03); color: var(--accent); }
 .nav-links a.active { background: var(--accent); color: #fff; }
 
-/* ========== Components ========== */
+
 .collage-placeholder {
   margin-top: 16px;
   padding: 40px;
@@ -101,12 +98,11 @@ html, body {
 .related-pages { margin-top: 28px; }
 .related-pages h2 { margin: 0 0 12px 0; color: var(--accent); }
 
-/* Collage image sizing */
 .collage-img {
   display: block;
-  max-width: 60%; /* default: image will be at most 60% of container width */
-  height: auto;    /* maintain aspect ratio */
-  margin: 18px 0;  /* space above and below */
+  max-width: 60%; 
+  height: auto;   
+  margin: 18px 0;
   border-radius: 8px;
 }
 
@@ -143,7 +139,7 @@ h3 {
 }
 .page-btn:hover { background: var(--accent-600); }
 
-/* ========== Utilities ========== */
+
 .sr-only {
   position: absolute !important;
   width: 1px; height: 1px;
@@ -152,23 +148,21 @@ h3 {
   white-space: nowrap; border: 0;
 }
 
-/* small responsive tweaks */
 @media (max-width: 520px) {
   .navbar { padding: 10px 12px; padding-left: 12px; }
   .main-content, .site-footer { margin: 24px auto; }
   .collage-placeholder { padding: 28px; }
 }
 
-/* Adjust navbar layout on medium and small screens */
 @media (max-width: 800px) {
   .navbar {
-    padding-left: 12px; /* free space when brand becomes static */
-    flex-wrap: wrap; /* allow content to wrap vertically */
+    padding-left: 12px; 
+    flex-wrap: wrap;
     align-items: flex-start;
   }
 
   .brand {
-    position: relative; /* place brand in flow on smaller screens */
+    position: relative; 
     left: 0;
     top: 0;
     transform: none;
@@ -191,20 +185,19 @@ h3 {
   .nav-links { gap: 8px; }
 }
 
-/* slightly reduce base font on very small screens to avoid overflow */
 @media (max-width: 360px) {
   html, body { font-size: 16px; }
   h1 { font-size: 1.6rem; }
 }
 
-/* ========== NEW: Grid Box Component ========== */
+
 .grid-box {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* responsive */
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
   gap: 16px;
   padding: 12px;
   border-radius: var(--radius-md);
-  background: rgba(255,255,255,0.4); /* subtle contrast with --bg */
+  background: rgba(255,255,255,0.4);
   box-shadow: var(--shadow);
 }
 
@@ -217,7 +210,7 @@ h3 {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  transition: transform 160ms ease, box-shadow 160ms ease; /* fast responsive feel */
+  transition: transform 160ms ease, box-shadow 160ms ease; /
 }
 
 .grid-item:hover {
@@ -236,7 +229,7 @@ h3 {
   color: var(--text);
 }
 
-/* Variant: fixed square box (good for icons, images) */
+
 .grid-item--square {
   aspect-ratio: 1 / 1;
   display: grid;
@@ -244,10 +237,10 @@ h3 {
   text-align: center;
 }
 
-/* Grid centering modifiers: center content horizontally and vertically */
+
 .grid-box--center {
   display: grid;
-  place-items: center; /* center grid cells */
+  place-items: center; 
   padding: 18px;
 }
 
@@ -257,17 +250,17 @@ h3 {
   justify-content: center;
 }
 
-/* Explicit column count modifiers (optional overrides) */
+
 .grid-box.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .grid-box.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .grid-box.cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 
-/* Smaller screens: slightly smaller min width to keep 2-up */
+
 @media (max-width: 640px) {
   .grid-box { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
 }
 
-/* Motion respect */
+
 @media (prefers-reduced-motion: reduce) {
   .grid-item { transition: none; }
 }
